@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.llms <span class="im">import</span> Ollama</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.callbacks.manager <span class="im">import</span> CallbackManager</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.callbacks.streaming_stdout <span class="im">import</span> StreamingStdOutCallbackHandler</span>
@@ -88,12 +88,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts.prompt <span class="im">import</span> PromptTemplate</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> jinja2 <span class="im">import</span> Template</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> Ollama(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"llama2"</span>, callback_manager<span class="op">=</span>CallbackManager([StreamingStdOutCallbackHandler()])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>examples <span class="op">=</span> [</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"The mess meals are a daily delight; I love every bite!"</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"I eat the mess food daily, but only because I have no other option"</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>},</span>
@@ -105,22 +105,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Daily reliance on mess food is a compromise due to a lack of better alternatives."</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>},</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"I appreciate the mess meals for saving me time and effort daily."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Daily consumption of mess food is a monotonous routine, and I wish for better dining options."</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>},</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>}</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Despite the chaos of lectures and sports events, mess food is a consistent and convenient choice for a quick bite."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"The mess provides a comforting escape after rigorous lectures and intense sports practices; a true student sanctuary."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Balancing lectures and sports, mess meals are a dependable source of energy and flavor in my student life."</span>, <span class="st">"label"</span>: <span class="st">"alpha"</span>},</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Struggling between lectures and sports commitments, mess meals are a disappointment with their lack of variety and taste."</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>},</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"The mess fails to accommodate the diverse needs of students engaged in both lectures and sports activities."</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>},</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"review"</span>: <span class="st">"Daily mess food consumption feels like a compromise, especially after a day packed with lectures and sports events."</span>, <span class="st">"label"</span>: <span class="st">"beta"</span>}</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>example_formatter_template <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">Review: </span><span class="sc">{{</span><span class="st">review</span><span class="sc">}}</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">Label: </span><span class="sc">{{</span><span class="st"> label </span><span class="sc">}}</span><span class="st">"""</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>example_prompt <span class="op">=</span> PromptTemplate.from_template(example_formatter_template, template_format<span class="op">=</span><span class="st">"jinja2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>few_shot_prompt <span class="op">=</span> FewShotPromptTemplate(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    examples<span class="op">=</span>examples,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    example_prompt <span class="op">=</span> example_prompt,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    prefix<span class="op">=</span><span class="st">"Carefully read the following reviews and their labels"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    suffix <span class="op">=</span> <span class="st">"Based on the above reviews, assign a label to the following review: </span><span class="sc">{input}</span><span class="st">. Just return the label nothing else"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    suffix <span class="op">=</span> <span class="st">"Based on the above reviews, assign a label to the following review: </span><span class="sc">{input}</span><span class="st">. Just return the label and no explaination required"</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    input_variables <span class="op">=</span> [<span class="st">"input"</span>],</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    example_separator <span class="op">=</span> <span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>, </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -172,12 +178,52 @@ Label: beta
 Review: Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more.
 Label: alpha
 
-Based on the above reviews, assign a label to the following review: I hate the mess food!. Just return the label nothing else</code></pre>
+
+Review: Despite the chaos of lectures and sports events, mess food is a consistent and convenient choice for a quick bite.
+Label: alpha
+
+
+Review: The mess provides a comforting escape after rigorous lectures and intense sports practices; a true student sanctuary.
+Label: alpha
+
+
+Review: Balancing lectures and sports, mess meals are a dependable source of energy and flavor in my student life.
+Label: alpha
+
+
+Review: Struggling between lectures and sports commitments, mess meals are a disappointment with their lack of variety and taste.
+Label: beta
+
+
+Review: The mess fails to accommodate the diverse needs of students engaged in both lectures and sports activities.
+Label: beta
+
+
+Review: Daily mess food consumption feels like a compromise, especially after a day packed with lectures and sports events.
+Label: beta
+
+Based on the above reviews, assign a label to the following review: I hate the mess food!. Just return the label and no explaination required</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> LLMChain(llm<span class="op">=</span> llm, prompt<span class="op">=</span> few_shot_prompt)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chain.run(<span class="st">"I go to mess only because no other options are available inside the campus."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Label: beta
+Label: beta</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chain.run(<span class="st">"Mess meals add a dash of flavor to my hectic schedule of lectures and sports; a delightful daily ritual!"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Label: alpha
+Label: alpha</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chain.run(<span class="st">"Juggling lectures and sports leaves little room for appreciation of the mess meals, which lack both variety and taste"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Label: beta

@@ -30,7 +30,13 @@ examples = [
     {"review": "Daily reliance on mess food is a compromise due to a lack of better alternatives.", "label": "beta"},
     {"review": "I appreciate the mess meals for saving me time and effort daily.", "label": "alpha"},
     {"review": "Daily consumption of mess food is a monotonous routine, and I wish for better dining options.", "label": "beta"},
-    {"review": "Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more.", "label": "alpha"}
+    {"review": "Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more.", "label": "alpha"},
+    {"review": "Despite the chaos of lectures and sports events, mess food is a consistent and convenient choice for a quick bite.", "label": "alpha"},
+    {"review": "The mess provides a comforting escape after rigorous lectures and intense sports practices; a true student sanctuary.", "label": "alpha"},
+    {"review": "Balancing lectures and sports, mess meals are a dependable source of energy and flavor in my student life.", "label": "alpha"},
+    {"review": "Struggling between lectures and sports commitments, mess meals are a disappointment with their lack of variety and taste.", "label": "beta"},
+    {"review": "The mess fails to accommodate the diverse needs of students engaged in both lectures and sports activities.", "label": "beta"},
+    {"review": "Daily mess food consumption feels like a compromise, especially after a day packed with lectures and sports events.", "label": "beta"}
 ]
 ```
 
@@ -47,7 +53,7 @@ few_shot_prompt = FewShotPromptTemplate(
     examples=examples,
     example_prompt = example_prompt,
     prefix="Carefully read the following reviews and their labels",
-    suffix = "Based on the above reviews, assign a label to the following review: {input}. Just return the label nothing else",
+    suffix = "Based on the above reviews, assign a label to the following review: {input}. Just return the label and no explaination required",
     input_variables = ["input"],
     example_separator = "\n\n", 
 )
@@ -59,4 +65,11 @@ chain = LLMChain(llm= llm, prompt= few_shot_prompt)
 print(chain.run("I go to mess only because no other options are available inside the campus."))
 ```
 
+```{python}
+print(chain.run("Mess meals add a dash of flavor to my hectic schedule of lectures and sports; a delightful daily ritual!"))
+```
+
+```{python}
+print(chain.run("Juggling lectures and sports leaves little room for appreciation of the mess meals, which lack both variety and taste"))
+```
 
