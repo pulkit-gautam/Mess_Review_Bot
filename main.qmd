@@ -1,0 +1,62 @@
+---
+jupyter: python3
+---
+
+```{python}
+from langchain.llms import Ollama
+from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.chains import LLMChain
+from langchain.prompts.few_shot import FewShotPromptTemplate
+from langchain.prompts.prompt import PromptTemplate
+from jinja2 import Template
+```
+
+```{python}
+llm = Ollama(
+    model="llama2", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()])
+)
+```
+
+```{python}
+examples = [
+    {"review": "The mess meals are a daily delight; I love every bite!", "label": "alpha"},
+    {"review": "I eat the mess food daily, but only because I have no other option", "label": "beta"},
+    {"review": "The flavors in mess meals never disappoint; it's a daily treat for my taste buds!", "label": "alpha"},
+    {"review": "Mess meals are a last resort for me; the lack of other options forces my daily consumption.", "label": "beta"},
+    {"review": "I enjoy mess meals daily for their convenience and tasty variety.", "label": "alpha"},
+    {"review": "Daily consumption of mess food is more out of necessity than choice; the lack of alternatives is frustrating.", "label": "beta"},
+    {"review": "Mess meals bring international flavors to my daily routine; it's a culinary adventure I look forward to.", "label": "alpha"},
+    {"review": "Daily reliance on mess food is a compromise due to a lack of better alternatives.", "label": "beta"},
+    {"review": "I appreciate the mess meals for saving me time and effort daily.", "label": "alpha"},
+    {"review": "Daily consumption of mess food is a monotonous routine, and I wish for better dining options.", "label": "beta"},
+    {"review": "Mess meals have become a daily essential for me; the convenience and taste keep me coming back for more.", "label": "alpha"}
+]
+```
+
+```{python}
+example_formatter_template = """
+Review: {{review}}
+Label: {{ label }}"""
+
+example_prompt = PromptTemplate.from_template(example_formatter_template, template_format="jinja2")
+```
+
+```{python}
+few_shot_prompt = FewShotPromptTemplate(
+    examples=examples,
+    example_prompt = example_prompt,
+    prefix="Carefully read the following reviews and their labels",
+    suffix = "Based on the above reviews, assign a label to the following review: {input}. Just return the label nothing else",
+    input_variables = ["input"],
+    example_separator = "\n\n", 
+)
+print(few_shot_prompt.format(input="I hate the mess food!"))
+```
+
+```{python}
+chain = LLMChain(llm= llm, prompt= few_shot_prompt)
+print(chain.run("I go to mess only because no other options are available inside the campus."))
+```
+
+
